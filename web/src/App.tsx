@@ -7,6 +7,9 @@ import { Header } from './components/header'
 import { useForm, SubmitHandler } from "react-hook-form"
 import { Modal } from './components/modal'
 import { useState } from 'react'
+import { choiceBestPetShop } from './services/choice-best-petStore'
+import { RequestPetStore } from './models/RequestPetStore'
+import { PetStore } from './models/PetStore'
 
 type FormInputs = {
   date: Date
@@ -16,15 +19,28 @@ type FormInputs = {
 
 function App() {
 
-
-  const [showModal, setShowModal] = useState(true)
-
+  const [showModal, setShowModal] = useState(false)
+  const [petStore, setPetStore] = useState<PetStore | null>(null)
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormInputs>()
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    
+    const body = {
+      date: data.date.toDateString(),
+      numberOfSmallDog: data.numberOfLittleDogs,
+      numberOfLargeDog: data.numberOfLargeDogs
+    } as RequestPetStore
+
+    try {
+      setPetStore(await choiceBestPetShop(body))
+      setShowModal(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
 
   return (
@@ -61,8 +77,9 @@ function App() {
         {showModal &&
           <Modal>
               <img src={logo} alt='Canil WOOF' className='w-[50px] h-auto'/>
-              <h2 className='font-semibold'>A melhor opção para PetShop: </h2>
-              <h3 className='font-semibold'>o valor total a se pagar é: </h3>
+              <h2 className='font-semibold'>A melhor opção para PetShop: {petStore?.name} </h2>
+              <h2 className='font-semibold'>Ele está a: {petStore?.distance} KM </h2>
+              <h3 className='font-semibold'>o valor total a se pagar é: {petStore?.totalCost}</h3>
               <Button onClick={()=>setShowModal(false)}>Fechar</Button>
           </Modal>
         }
