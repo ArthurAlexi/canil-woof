@@ -36,7 +36,7 @@ function App() {
 
             <div className="flex flex-col">
               <label>Informe o data:</label>
-              <Input type='date' {...register('date', { required: true })} />
+              <Input type='date' {...register('date', { required: true,  })} />
               {errors.date && <span className='text-red-600'>Campo obrigatório</span>}
             </div>
 
