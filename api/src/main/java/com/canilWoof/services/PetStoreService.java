@@ -47,18 +47,20 @@ public class PetStoreService {
         return  new ResponseDTO(choice.getName(), choice.getDistance(), lowestTotalCost);
     }
 
-
     private BigDecimal calculateTotalCost(PetStore petStore, RequestDTO dto){
-        BigDecimal increasedCost = BigDecimal.ONE;
 
-        if(isSpecialDay(dto.date())){
-            increasedCost = increasedCost.add(BigDecimal.valueOf(petStore.getIncreasedCost()));
+        BigDecimal costToSmallDog = petStore.getCostToSmallDog();
+        BigDecimal costToLargeDog = petStore.getCostToLargeDog();
+
+        if (isSpecialDay(dto.date())) {
+            costToSmallDog = petStore.getSpecialCostToSmallDog();
+            costToLargeDog = petStore.getSpecialCostToLargeDog();
         }
 
-        BigDecimal totalCoastSmallDog = petStore.getCostToSmallDog().multiply(BigDecimal.valueOf(dto.numberOfSmallDog()));
-        BigDecimal totalCoastLargeDog = petStore.getCostToLargeDog().multiply(BigDecimal.valueOf(dto.numberOfLargeDog()));
+        BigDecimal totalCostSmallDog = costToSmallDog.multiply(BigDecimal.valueOf(dto.numberOfSmallDog()));
+        BigDecimal totalCostLargeDog = costToLargeDog.multiply(BigDecimal.valueOf(dto.numberOfLargeDog()));
 
-        return totalCoastSmallDog.add(totalCoastLargeDog).multiply(increasedCost);
+        return totalCostSmallDog.add(totalCostLargeDog);
     }
 
     private boolean isSpecialDay(LocalDate date){

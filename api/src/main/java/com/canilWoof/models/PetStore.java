@@ -25,15 +25,25 @@ public class PetStore {
 
     private BigDecimal costToLargeDog;
 
-    private Double increasedCost;
+    private BigDecimal specialCostToSmallDog;
+
+    private BigDecimal specialCostToLargeDog;
 
     private Double distance;
 
-    public PetStore(String name, BigDecimal costToSmallDog, BigDecimal costToLargeDog, Double increasedCost, Double distance) {
+    public PetStore(
+            String name,
+            BigDecimal costToSmallDog,
+            BigDecimal costToLargeDog,
+            BigDecimal specialCostToSmallDog,
+            BigDecimal specialCostToLargeDog ,
+            Double distance ) {
+
         this.name = name;
         this.costToSmallDog = costToSmallDog;
         this.costToLargeDog = costToLargeDog;
-        this.increasedCost = increasedCost;
+        this.specialCostToSmallDog = specialCostToSmallDog;
+        this.specialCostToLargeDog = specialCostToLargeDog;
         this.distance = distance;
     }
 }
