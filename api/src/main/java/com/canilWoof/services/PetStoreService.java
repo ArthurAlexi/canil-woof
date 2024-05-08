@@ -36,7 +36,7 @@ public class PetStoreService {
             BigDecimal tempTotalCost = calculateTotalCost(petStore, dto);
             int compare = lowestTotalCost.compareTo(tempTotalCost);
 
-            if (compare < 0 || (compare == 0 && choice.getDistance() > petStore.getDistance())) {
+            if (compare > 0 || (compare == 0 && choice.getDistance() > petStore.getDistance())) {
                 choice = petStore;
                 lowestTotalCost = tempTotalCost;
             }
