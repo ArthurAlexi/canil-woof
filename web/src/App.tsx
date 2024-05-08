@@ -1,15 +1,16 @@
 import './App.css'
-import logo from '../public/logo.png'
 import { Button } from './components/button'
 import Input from './components/input'
 import { Header } from './components/header'
+import { Card } from './components/card'
+import { Modal } from './components/modal'
 
 import { useForm, SubmitHandler } from "react-hook-form"
-import { Modal } from './components/modal'
 import { useState } from 'react'
 import { choiceBestPetShop } from './services/choice-best-petStore'
 import { RequestPetStore } from './models/RequestPetStore'
 import { PetStore } from './models/PetStore'
+
 
 type FormInputs = {
   date: string
@@ -21,12 +22,15 @@ function App() {
 
   const [showModal, setShowModal] = useState(false)
   const [petStore, setPetStore] = useState<PetStore | null>(null)
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset
   } = useForm<FormInputs>()
+  
+  
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
     const body = {
@@ -43,6 +47,10 @@ function App() {
       console.error(error)
     }
 
+  }
+
+  function closeModal(){
+    setShowModal(false)
   }
 
   return (
@@ -78,19 +86,7 @@ function App() {
 
         {showModal &&
           <Modal>
-            <div className="flex justify-center items-center">
-              <img src={logo} alt='Canil WOOF' className='w-[50px] h-auto' />
-              <h2 className='font-bold text-2xl'>Resultado</h2>
-            </div>
-            <div className='p-3 border rounded-md my-2'>
-              <h2 className=' text-xl text-slate-900'>PetShop: <span className='font-semibold ml-4'>{petStore?.name}</span> </h2>
-              <h2 className=' text-xl text-slate-900'>Distância: <span className='font-semibold ml-3'> {petStore?.distance} KM </span> do canil</h2>
-              <h3 className=' text-xl text-slate-900'>Valor: <span className='font-semibold ml-12'> {petStore?.totalCost.toLocaleString('pt-br', {
-                style: 'currency',
-                currency: 'BRL'
-              })} </span></h3>
-            </div>
-            <Button onClick={() => setShowModal(false)}>Fechar</Button>
+            <Card petStore={petStore} action={closeModal}/>
           </Modal>
         }
 
