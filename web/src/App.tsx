@@ -1,4 +1,7 @@
 import './App.css'
+import dogPaw from './assets/dogPaw.png'
+import dogPawTrail from './assets/dogPawTrail.png'
+
 import { Button } from './components/button'
 import Input from './components/input'
 import { Header } from './components/header'
@@ -29,8 +32,8 @@ function App() {
     formState: { errors },
     reset
   } = useForm<FormInputs>()
-  
-  
+
+
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
 
     const body = {
@@ -49,7 +52,7 @@ function App() {
 
   }
 
-  function closeModal(){
+  function closeModal() {
     setShowModal(false)
   }
 
@@ -81,14 +84,16 @@ function App() {
             </div>
 
             <Button type="submit"> Buscar </Button>
+            <img src={dogPaw} alt="dog paw" className='w-28  rotate-12 self-end' />
           </form>
         </section>
 
         {showModal &&
           <Modal>
-            <Card petStore={petStore} action={closeModal}/>
+            <Card petStore={petStore} action={closeModal} />
           </Modal>
         }
+
 
       </main>
     </>
