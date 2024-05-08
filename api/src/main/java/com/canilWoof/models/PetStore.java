@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "petshop")
+@Table(name = "petstore")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PetShop {
+public class PetStore {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
