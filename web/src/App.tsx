@@ -12,9 +12,9 @@ import { RequestPetStore } from './models/RequestPetStore'
 import { PetStore } from './models/PetStore'
 
 type FormInputs = {
-  date: Date
-  numberOfLargeDogs: number
+  date: string
   numberOfLittleDogs: number
+  numberOfLargeDogs: number
 }
 
 function App() {
@@ -25,23 +25,25 @@ function App() {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<FormInputs>()
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    
+
     const body = {
-      date: data.date.toDateString(),
+      date: data.date,
       numberOfSmallDog: data.numberOfLittleDogs,
       numberOfLargeDog: data.numberOfLargeDogs
     } as RequestPetStore
 
     try {
       setPetStore(await choiceBestPetShop(body))
-      setShowModal(false)
+      setShowModal(true)
+      reset()
     } catch (error) {
       console.error(error)
     }
-  }
 
+  }
 
   return (
     <>
@@ -52,7 +54,7 @@ function App() {
 
             <div className="flex flex-col">
               <label>Informe o data:</label>
-              <Input type='date' {...register('date', { required: true,  })} />
+              <Input type='date' {...register('date', { required: true, })} />
               {errors.date && <span className='text-red-600'>Campo obrigatório</span>}
             </div>
 
@@ -76,11 +78,19 @@ function App() {
 
         {showModal &&
           <Modal>
-              <img src={logo} alt='Canil WOOF' className='w-[50px] h-auto'/>
-              <h2 className='font-semibold'>A melhor opção para PetShop: {petStore?.name} </h2>
-              <h2 className='font-semibold'>Ele está a: {petStore?.distance} KM </h2>
-              <h3 className='font-semibold'>o valor total a se pagar é: {petStore?.totalCost}</h3>
-              <Button onClick={()=>setShowModal(false)}>Fechar</Button>
+            <div className="flex justify-center items-center">
+              <img src={logo} alt='Canil WOOF' className='w-[50px] h-auto' />
+              <h2 className='font-bold text-2xl'>Resultado</h2>
+            </div>
+            <div className='p-3 border rounded-md my-2'>
+              <h2 className=' text-xl text-slate-900'>PetShop: <span className='font-semibold ml-4'>{petStore?.name}</span> </h2>
+              <h2 className=' text-xl text-slate-900'>Distância: <span className='font-semibold ml-3'> {petStore?.distance} KM </span> do canil</h2>
+              <h3 className=' text-xl text-slate-900'>Valor: <span className='font-semibold ml-12'> {petStore?.totalCost.toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL'
+              })} </span></h3>
+            </div>
+            <Button onClick={() => setShowModal(false)}>Fechar</Button>
           </Modal>
         }
 
