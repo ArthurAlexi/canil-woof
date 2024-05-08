@@ -1,7 +1,7 @@
 import './App.css'
 import logo from '../public/logo.png'
-import { Button } from './components/Button'
-import Input from './components/Input'
+import { Button } from './components/button'
+import Input from './components/input'
 import { Header } from './components/header'
 
 import { useForm, SubmitHandler } from "react-hook-form"
