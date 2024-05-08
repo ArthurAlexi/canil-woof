@@ -28,4 +28,12 @@ public class PetStore {
     private Double increasedCost;
 
     private Double distance;
+
+    public PetStore(String name, BigDecimal costToSmallDog, BigDecimal costToLargeDog, Double increasedCost, Double distance) {
+        this.name = name;
+        this.costToSmallDog = costToSmallDog;
+        this.costToLargeDog = costToLargeDog;
+        this.increasedCost = increasedCost;
+        this.distance = distance;
+    }
 }
