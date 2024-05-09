@@ -77,7 +77,7 @@ o site estará na porta: `5173`
 
 # Testes
 
-Foi desenvolvido testes unitários para a funcionalide de escolha do petshop com auxílio do [Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-core) para mocar o retorno do banco de dados.
+Foi desenvolvido [testes unitários](https://github.com/ArthurAlexi/canil-woof/blob/main/api/src/test/java/com/canilWoof/servicesTests/PetStoreServiceTest.java) para a funcionalide de escolha do petshop com auxílio do [Mockito](https://mvnrepository.com/artifact/org.mockito/mockito-core) para mocar o retorno do banco de dados.
 
 Os casos de teste foram:
 
