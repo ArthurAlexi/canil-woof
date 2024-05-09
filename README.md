@@ -43,6 +43,23 @@ mvn spring-boot:run
 
 a api estará na porta: `8080`
 
+### Pelo Dockerfile
+
+Para utilizar o docker é necessário instalar o [docker](https://docs.docker.com/get-docker/).
+
+No diretório da `api` que contém o arquivo `dockerfile` utilize o seguinte comando:
+
+```
+docker build . -t 'alexi/canil-woof'
+```
+Depois que o processo terminar, utilize o comando a baixo para iniciar a api.
+
+porta: `8080`
+
+```
+docker run -p 8080:8080 alexi/canil-woof
+```
+
 ## Frontend
 
 Após clonar o projeto, vá para o diretório `web` que contém o arquivo `package.json` e rode o seguinte comando:
