@@ -1,15 +1,14 @@
 import './App.css'
 import dogPaw from './assets/dogPaw.png'
-import dogPawTrail from './assets/dogPawTrail.png'
 
-import { Button } from './components/button'
-import Input from './components/input'
 import { Header } from './components/header'
+import { Button } from './components/button'
 import { Card } from './components/card'
 import { Modal } from './components/modal'
+import InputForm from './components/inputForm'
 
-import { useForm, SubmitHandler } from "react-hook-form"
 import { useState } from 'react'
+import { useForm, SubmitHandler } from "react-hook-form"
 import { choiceBestPetShop } from './services/choice-best-petStore'
 import { RequestPetStore } from './models/RequestPetStore'
 import { PetStore } from './models/PetStore'
@@ -63,25 +62,27 @@ function App() {
         <section className='w-[400px] p-5 rounded-md bg-slate-800'>
           <form className='flex flex-col gap-5 p-3' onSubmit={handleSubmit(onSubmit)}>
 
-            <div className="flex flex-col">
-              <label>Informe o data:</label>
-              <Input type='date' {...register('date', { required: true, })} />
-              {errors.date && <span className='text-red-600'>Campo obrigatório</span>}
-            </div>
+            <InputForm label='Informe o data' type='date' {...register('date',
+              {
+                required: { value: true, message: "Campo obrigatório." },
+                min: { value: 0, message: "Campo precisa ser maior que 0." }
+              }
+            )} errorMessage={errors.date?.message} />
 
-            <div className="flex flex-col">
-              <label>Quantos cães pequenos?</label>
-              <Input type="number" placeholder='cães pequenos...' inputMode="numeric" pattern="[0-9]*"  {...register('numberOfLittleDogs', { required: true, min: 0 })} />
-              {errors.numberOfLittleDogs?.type === 'required' && <span className='text-red-600'>Campo obrigatório</span>}
-              {errors.numberOfLittleDogs?.type === 'min' && <span className='text-red-600'>Campo tem que ser positivo</span>}
-            </div>
+            <InputForm label='Quantos cães pequenos?' type='number' placeholder='cães pequenos...' {...register('numberOfLittleDogs',
+              {
+                required: { value: true, message: "Campo obrigatório." },
+                min: { value: 0, message: "Campo precisa ser maior que 0." }
+              }
+            )} errorMessage={errors.numberOfLittleDogs?.message} />
 
-            <div className="flex flex-col">
-              <label>Quantos cães grandes?</label>
-              <Input type="number" placeholder='cães grandes...' {...register('numberOfLargeDogs', { required: true, min: 0 })} />
-              {errors.numberOfLargeDogs?.type === 'required' && <span className='text-red-600'>Campo obrigatório</span>}
-              {errors.numberOfLargeDogs?.type === 'min' && <span className='text-red-600'>Campo tem que ser positivo</span>}
-            </div>
+            <InputForm label='Quantos cães grandes?' type='number' placeholder='cães grandes...' {...register('numberOfLargeDogs',
+              {
+                required: { value: true, message: "Campo obrigatório." },
+                min: { value: 0, message: "Campo precisa ser maior que 0." }
+              }
+            )} errorMessage={errors.numberOfLargeDogs?.message} />
+
 
             <Button type="submit"> Buscar </Button>
             <img src={dogPaw} alt="dog paw" className='w-28  rotate-12 self-end' />
